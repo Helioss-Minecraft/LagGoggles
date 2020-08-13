@@ -29,7 +29,7 @@ import java.util.List;
 
 public class CommonProxy {
 
-    public static LuckPerms api = LuckPermsProvider.get();
+
 
     public static final SimpleNetworkWrapper NETWORK_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(Main.MODID);
 
@@ -40,6 +40,7 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e){
+        LuckPerms api = LuckPermsProvider.get();
         PermissionNode node = PermissionNode.builder("lg.query.world").build();
         
     }
