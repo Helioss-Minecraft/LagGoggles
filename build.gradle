@@ -87,7 +87,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.github.terminatornl.tickcentral:TickCentral:3.0-testing-dev" // resolved in mavenLocal, run publishToMavenLocal on TickCentral
+    compile "com.github.terminatornl.tickcentral:TickCentral:2.6" // resolved in mavenLocal, run publishToMavenLocal on TickCentral
     compile 'net.luckperms:api:5.0'
 }
 
