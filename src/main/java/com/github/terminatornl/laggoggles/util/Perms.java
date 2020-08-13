@@ -4,6 +4,11 @@ import com.github.terminatornl.laggoggles.packet.ObjectData;
 import com.github.terminatornl.laggoggles.profiler.ProfileResult;
 import com.github.terminatornl.laggoggles.server.RequestDataHandler;
 import com.github.terminatornl.laggoggles.server.ServerConfig;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.model.user.UserManager;
+import net.luckperms.api.node.Node;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,13 +19,15 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
-
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Perms {
 
-    
+    static LuckPerms api = LuckPermsProvider.get();
 
     public static final double MAX_RANGE_FOR_PLAYERS_HORIZONTAL_SQ = ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE * ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE;
     public static final double MAX_RANGE_FOR_PLAYERS_VERTICAL_SQ = ServerConfig.NON_OPS_MAX_VERTICAL_RANGE * ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE;
@@ -32,9 +39,13 @@ public class Perms {
         FULL
     }
 
+    public static boolean getUserPerms(UUID uniqueId) {
+        return api.getUserManager().getUser(uniqueId).getNodes().contains("lg.query.world");
+    }
+
 
     public static Permission getPermission(EntityPlayer p){
-        if(FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getPermissionLevel(p.getGameProfile()) > 0 || FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer() == false) {
+        if(getUserPerms(p.getUniqueID()) || FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer() == false) {
             return Permission.FULL;
         }else{
             return ServerConfig.NON_OP_PERMISSION_LEVEL;
