@@ -1,5 +1,6 @@
 package com.github.terminatornl.laggoggles.util;
 
+import com.github.terminatornl.laggoggles.Main;
 import com.github.terminatornl.laggoggles.packet.ObjectData;
 import com.github.terminatornl.laggoggles.profiler.ProfileResult;
 import com.github.terminatornl.laggoggles.server.RequestDataHandler;
@@ -40,7 +41,15 @@ public class Perms {
     }
 
     public static boolean getUserPerms(UUID uniqueId) {
-        return api.getUserManager().getUser(uniqueId).getNodes().contains("lg.query.world");
+        Collection<Node> nodes = api.getUserManager().getUser(uniqueId).getNodes();
+
+        for (Node node : nodes) {
+            if (node.getKey().equals("lg.query.world")) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
