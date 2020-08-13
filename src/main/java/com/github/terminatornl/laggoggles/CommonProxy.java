@@ -21,10 +21,15 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import net.luckperms.api.node.types.PermissionNode;
+import net.luckperms.*;
+import net.luckperms.api.*;
 
 import java.util.List;
 
 public class CommonProxy {
+
+    public static LuckPerms api = LuckPermsProvider.get();
 
     public static final SimpleNetworkWrapper NETWORK_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(Main.MODID);
 
@@ -34,7 +39,10 @@ public class CommonProxy {
 
     }
 
-    public void init(FMLInitializationEvent e){}
+    public void init(FMLInitializationEvent e){
+        PermissionNode node = PermissionNode.builder("lg.query.world").build();
+        
+    }
 
     public void postinit(FMLPostInitializationEvent e){
         NETWORK_WRAPPER.registerMessage(

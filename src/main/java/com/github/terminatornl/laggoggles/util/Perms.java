@@ -12,10 +12,15 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+
 import java.util.ArrayList;
 import java.util.UUID;
 
+
+
 public class Perms {
+
+    
 
     public static final double MAX_RANGE_FOR_PLAYERS_HORIZONTAL_SQ = ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE * ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE;
     public static final double MAX_RANGE_FOR_PLAYERS_VERTICAL_SQ = ServerConfig.NON_OPS_MAX_VERTICAL_RANGE * ServerConfig.NON_OPS_MAX_HORIZONTAL_RANGE;
@@ -26,6 +31,7 @@ public class Perms {
         START,
         FULL
     }
+
 
     public static Permission getPermission(EntityPlayer p){
         if(FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getPermissionLevel(p.getGameProfile()) > 0 || FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer() == false) {
